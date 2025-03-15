@@ -1,6 +1,8 @@
 let pageBody = document.querySelector("body");
 let colours = ["cyan","yellow","magenta","off"];
 let colorClass = '';
+let boardWidth = 5;
+let boardHeight = 5;
 let controlList = [];
 
 function buildHeader(){
@@ -20,10 +22,10 @@ function buildHeader(){
 function buildBoard(){
     let playSpace = document.createElement("div");
     pageBody.appendChild(playSpace);
-    for(let y = 0;y<10;y++){
+    for(let y = 0;y<boardHeight;y++){
         let myRow = document.createElement("section");
         playSpace.appendChild(myRow);
-        for(let x = 0; x<10;x++){
+        for(let x = 0; x<boardWidth;x++){
             let lightDot = document.createElement("article");
             lightDot.addEventListener("click", dotClickAction);
             myRow.appendChild(lightDot);
