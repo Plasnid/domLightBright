@@ -1,0 +1,55 @@
+let pageBody = document.querySelector("body");
+let colours = ["cyan","yellow","magenta","off"];
+let colorClass = '';
+let controlList = [];
+
+function buildHeader(){
+    let controls = document.createElement("header");
+    pageBody.appendChild(controls);
+    for(let i=0;i<colours.length;i++){
+        let control = document.createElement("div");
+        controlList.push(control);
+        control.innerText = colours[i];
+        control.classList.add("select-colour", "not-selected");
+        control.classList.add(colours[i]);
+        control.dataset.col = colours[i];
+        control.addEventListener("click", colorSelectAction);
+        controls.appendChild(control);
+    }
+}
+function buildBoard(){
+    let playSpace = document.createElement("div");
+    pageBody.appendChild(playSpace);
+    for(let y = 0;y<10;y++){
+        let myRow = document.createElement("section");
+        playSpace.appendChild(myRow);
+        for(let x = 0; x<10;x++){
+            let lightDot = document.createElement("article");
+            lightDot.addEventListener("click", dotClickAction);
+            myRow.appendChild(lightDot);
+        }
+    }
+}
+
+function colorSelectAction(e){
+    for(control of controlList){
+        control.classList.add('not-selected');
+    }
+    if(e.target.dataset.col!="off"){
+        colorClass = e.target.dataset.col;
+    }else{
+        colorClass = null;
+    }
+    e.target.classList.remove('not-selected');
+}
+
+function dotClickAction(e){
+    for(clr of colours){
+        e.target.classList.remove(clr);
+    }
+    if(colorClass){
+        e.target.classList.add(colorClass);
+    }
+}
+buildHeader();
+buildBoard();
