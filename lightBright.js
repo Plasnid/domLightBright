@@ -1,9 +1,16 @@
 let pageBody = document.querySelector("body");
-let colours = ["cyan","yellow","magenta","off"];
+let colours = ["off","yellow","magenta","cyan"];
 let colorClass = '';
 let boardWidth = 5;
 let boardHeight = 5;
 let controlList = [];
+let smiler = [
+    [null, null, null, null, null],
+    [null, 1, null, 1, null],
+    [null, null, 3, null, null],
+    [2, null, null, null, 2],
+    [2, 2, 2, 2, 2]
+]
 
 function buildHeader(){
     let controls = document.createElement("header");
@@ -21,6 +28,7 @@ function buildHeader(){
 }
 function buildBoard(){
     let playSpace = document.createElement("div");
+    playSpace.id = "playSpace";
     pageBody.appendChild(playSpace);
     for(let y = 0;y<boardHeight;y++){
         let myRow = document.createElement("section");
@@ -53,5 +61,18 @@ function dotClickAction(e){
         e.target.classList.add(colorClass);
     }
 }
+function buildImage(playSpace, imgData){
+    console.log(playSpace);
+    
+    for(let y=0;y<imgData.length;y++){
+        console.log(playSpace.childNodes[y])
+        for(let x=0;x<imgData[y].length;x++){
+            if(imgData[y][x]){
+                playSpace.childNodes[y].childNodes[x].classList.add(colours[imgData[y][x]]);
+            }
+        }
+    }
+}
 buildHeader();
 buildBoard();
+buildImage(document.querySelector("#playSpace"), smiler);
